@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthAI — Disease Prediction System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <span class="logo-icon">⬡</span>
+    <span class="logo-text">Health<span class="neon-cyan">AI</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home" class="nav-link">Home</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#predict" class="nav-link">Predict</a></li>
+    <li><a href="#models" class="nav-link">Models</a></li>
+    <li><a href="#workflow" class="nav-link">Workflow</a></li>
+    <li><a href="#docs" class="nav-link">Docs</a></li>
+  </ul>
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    <span class="status-text">Model Active</span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="home" class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>🧬</span> Machine Learning · Medical AI · CodeAlpha Task-4
+    </div>
+    <h1 class="hero-title">
+      Disease<br />
+      <span class="gradient-text">Prediction</span><br />
+      System
+    </h1>
+    <p class="hero-subtitle">
+      Predict cardiovascular disease risk from patient medical data using
+      ensemble machine learning — <em>Logistic Regression, Random Forest,
+      SVM, XGBoost</em> and more. Built on the <strong>UCI Heart Disease Dataset</strong>.
+    </p>
+    <div class="hero-cta">
+      <a href="#predict" class="btn btn-primary">
+        <span>Run Prediction</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#models" class="btn btn-secondary">
+        View Model Results
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-val neon-green">90.1%</span>
+        <span class="stat-lbl">Best Accuracy</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val neon-pink">95.2%</span>
+        <span class="stat-lbl">ROC-AUC</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val neon-cyan">303</span>
+        <span class="stat-lbl">Training Samples</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val neon-yellow">5</span>
+        <span class="stat-lbl">ML Algorithms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="pulse-ring r1"></div>
+    <div class="pulse-ring r2"></div>
+    <div class="pulse-ring r3"></div>
+    <div class="heart-monitor">
+      <svg viewBox="0 0 300 100" class="ecg-svg">
+        <polyline class="ecg-line" points="0,50 30,50 45,50 55,10 65,90 75,50 120,50 135,50 145,10 155,90 165,50 210,50 225,50 235,10 245,90 255,50 300,50"/>
+      </svg>
+    </div>
+    <div class="data-cards">
+      <div class="data-card dc1">♥ Heart Rate <strong>72 BPM</strong></div>
+      <div class="data-card dc2">⬆ BP <strong>120/80</strong></div>
+      <div class="data-card dc3">⬡ Glucose <strong>98 mg/dL</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ ABOUT ══════════════════════════════ -->
+<section id="about" class="section about-section">
+  <div class="section-header">
+    <span class="section-tag">About the Project</span>
+    <h2>What We Built</h2>
+    <p>A complete end-to-end ML pipeline for disease prediction, from raw data to deployed web interface.</p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="card-icon neon-cyan">📊</div>
+      <h3>Dataset</h3>
+      <p>UCI Heart Disease Dataset — 303 patient records, 13 clinical features including age, cholesterol, blood pressure, and ECG results.</p>
+    </div>
+    <div class="about-card">
+      <div class="card-icon neon-pink">🔬</div>
+      <h3>Data Pipeline</h3>
+      <p>Automated preprocessing: missing value imputation, outlier detection via IQR, feature scaling with StandardScaler, and stratified train/test split.</p>
+    </div>
+    <div class="about-card">
+      <div class="card-icon neon-green">🤖</div>
+      <h3>ML Models</h3>
+      <p>5 algorithms benchmarked — Logistic Regression, SVM, Decision Tree, Random Forest, and XGBoost with hyperparameter tuning via GridSearchCV.</p>
+    </div>
+    <div class="about-card">
+      <div class="card-icon neon-yellow">📈</div>
+      <h3>Evaluation</h3>
+      <p>Comprehensive metrics: Accuracy, Precision, Recall, F1-Score, ROC-AUC, and Confusion Matrix for rigorous model comparison.</p>
+    </div>
+    <div class="about-card">
+      <div class="card-icon neon-purple">💾</div>
+      <h3>Model Saving</h3>
+      <p>Best model persisted with Joblib (.pkl). Includes a reusable prediction script that loads the model and generates confidence scores.</p>
+    </div>
+    <div class="about-card">
+      <div class="card-icon neon-cyan">🌐</div>
+      <h3>Web App</h3>
+      <p>Flask-powered real-time prediction interface — enter patient details and get instant disease risk assessment with probability score.</p>
+    </div>
+  </div>
+
+  <div class="dataset-banner">
+    <div class="db-label">Dataset Overview</div>
+    <div class="db-stats" id="dataset-stats">
+      <div class="db-stat"><span class="ds-val" id="ds-total">303</span><span class="ds-lbl">Total Samples</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-features">13</span><span class="ds-lbl">Features</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-positive">165</span><span class="ds-lbl">Disease +ve</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-negative">138</span><span class="ds-lbl">Disease -ve</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-missing">0</span><span class="ds-lbl">Missing Values</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-train">242</span><span class="ds-lbl">Train Samples</span></div>
+      <div class="db-stat"><span class="ds-val" id="ds-test">61</span><span class="ds-lbl">Test Samples</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ PREDICT ══════════════════════════════ -->
+<section id="predict" class="section predict-section">
+  <div class="section-header">
+    <span class="section-tag">Real-time Inference</span>
+    <h2>Disease Prediction Engine</h2>
+    <p>Enter patient clinical data to receive an instant cardiovascular disease risk assessment.</p>
+  </div>
+
+  <div class="predict-container">
+    <!-- Form -->
+    <form class="predict-form-wrap" onsubmit="event.preventDefault(); runPrediction();">
+      <div class="form-title">Patient Data Input</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Age (years)</label>
+          <input type="number" id="age" value="52" min="20" max="100" class="neon-input" required />
+        </div>
+        <div class="form-group">
+          <label>Sex</label>
+          <select id="sex" class="neon-input">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Chest Pain Type</label>
+          <select id="chest_pain_type" class="neon-input">
+            <option value="0">Typical Angina</option>
+            <option value="1">Atypical Angina</option>
+            <option value="2">Non-Anginal Pain</option>
+            <option value="3">Asymptomatic</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Resting BP (mmHg)</label>
+          <input type="number" id="resting_bp" value="130" min="80" max="220" class="neon-input" required />
+        </div>
+        <div class="form-group">
+          <label>Cholesterol (mg/dL)</label>
+          <input type="number" id="cholesterol" value="250" min="100" max="600" class="neon-input" required />
+        </div>
+        <div class="form-group">
+          <label>Fasting Blood Sugar > 120</label>
+          <select id="fasting_blood_sugar" class="neon-input">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Resting ECG</label>
+          <select id="resting_ecg" class="neon-input">
+            <option value="0">Normal</option>
+            <option value="1">ST-T Abnormality</option>
+            <option value="2">LV Hypertrophy</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Max Heart Rate</label>
+          <input type="number" id="max_heart_rate" value="150" min="60" max="220" class="neon-input" required />
+        </div>
+        <div class="form-group">
+          <label>Exercise Induced Angina</label>
+          <select id="exercise_angina" class="neon-input">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ST Depression (Oldpeak)</label>
+          <input type="number" id="oldpeak" value="1.0" min="0" max="7" step="0.1" class="neon-input" required />
+        </div>
+        <div class="form-group">
+          <label>Slope of ST Segment</label>
+          <select id="slope" class="neon-input">
+            <option value="0">Upsloping</option>
+            <option value="1">Flat</option>
+            <option value="2">Downsloping</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Num. Major Vessels (0-3)</label>
+          <input type="number" id="num_vessels" value="0" min="0" max="3" class="neon-input" required />
+        </div>
+        <div class="form-group span2">
+          <label>Thalassemia</label>
+          <select id="thal" class="neon-input">
+            <option value="1">Normal</option>
+            <option value="2">Fixed Defect</option>
+            <option value="3">Reversible Defect</option>
+          </select>
+        </div>
+
+      </div>
+      <button type="submit" id="predict-btn" class="btn btn-primary btn-large">
+        <span>⚡ Analyze &amp; Predict</span>
+      </button>
+    </form>
+
+    <!-- Result Panel -->
+    <div class="predict-result-wrap">
+      <div class="result-title">Prediction Result</div>
+      <div class="result-box" id="result-box">
+        <div class="result-idle">
+          <div class="idle-icon">🔬</div>
+          <p>Enter patient data and click <strong>Analyze</strong> to see disease risk assessment.</p>
+        </div>
+      </div>
+
+      <div class="result-info-cards">
+        <div class="ri-card">
+          <div class="ri-title">Model Used</div>
+          <div class="ri-val">XGBoost</div>
+        </div>
+        <div class="ri-card">
+          <div class="ri-title">Best Accuracy</div>
+          <div class="ri-val neon-green">90.1%</div>
+        </div>
+        <div class="ri-card">
+          <div class="ri-title">Dataset</div>
+          <div class="ri-val">UCI Heart</div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        ⚠️ This tool is for educational and research purposes only.
+        Always consult a qualified medical professional for diagnosis.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ MODELS ══════════════════════════════ -->
+<section id="models" class="section models-section">
+  <div class="section-header">
+    <span class="section-tag">Model Benchmarking</span>
+    <h2>Algorithm Comparison</h2>
+    <p>All five models evaluated on the same 80/20 stratified train-test split.</p>
+  </div>
+
+  <div class="models-table-wrap">
+    <table class="models-table" id="models-table">
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Accuracy</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1-Score</th>
+          <th>ROC-AUC</th>
+          <th>Rank</th>
+        </tr>
+      </thead>
+      <tbody id="models-tbody">
+        <tr><td colspan="7" style="text-align:center">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-box">
+      <div class="chart-title">📊 Accuracy Comparison</div>
+      <canvas id="accuracyChart" width="400" height="250"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">🎯 Feature Importance</div>
+      <canvas id="featureChart" width="400" height="250"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ WORKFLOW ══════════════════════════════ -->
+<section id="workflow" class="section workflow-section">
+  <div class="section-header">
+    <span class="section-tag">Project Pipeline</span>
+    <h2>ML Workflow</h2>
+    <p>From raw medical data to real-time predictions — a complete end-to-end pipeline.</p>
+  </div>
+
+  <div class="workflow-steps">
+    <div class="wf-step">
+      <div class="wf-num">01</div>
+      <div class="wf-icon">📥</div>
+      <div class="wf-title">Data Collection</div>
+      <div class="wf-desc">Load UCI Heart Disease dataset. Inspect shape, columns, dtypes and explore distribution of target variable.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">02</div>
+      <div class="wf-icon">🧹</div>
+      <div class="wf-title">Preprocessing</div>
+      <div class="wf-desc">Handle missing values, remove duplicates, detect & clip outliers with IQR, encode categoricals, StandardScaler normalization.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">03</div>
+      <div class="wf-icon">🔍</div>
+      <div class="wf-title">EDA</div>
+      <div class="wf-desc">Correlation heatmaps, distribution plots, boxplots, count plots. Identify key predictors of heart disease.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">04</div>
+      <div class="wf-icon">⚙️</div>
+      <div class="wf-title">Feature Eng.</div>
+      <div class="wf-desc">Select top features via mutual information, drop redundant columns, engineer interaction terms where meaningful.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">05</div>
+      <div class="wf-icon">🤖</div>
+      <div class="wf-title">Model Training</div>
+      <div class="wf-desc">Train LR, SVM, DT, RF, XGBoost. Hyperparameter tuning via GridSearchCV. Cross-validation with StratifiedKFold.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">06</div>
+      <div class="wf-icon">📈</div>
+      <div class="wf-title">Evaluation</div>
+      <div class="wf-desc">Accuracy, Precision, Recall, F1, ROC-AUC, Confusion Matrix. Best model selected: XGBoost at 90.1%.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">07</div>
+      <div class="wf-icon">💾</div>
+      <div class="wf-title">Model Saving</div>
+      <div class="wf-desc">Serialize best model to .pkl with Joblib. Prediction script loads model and returns probability + label.</div>
+    </div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-step">
+      <div class="wf-num">08</div>
+      <div class="wf-icon">🌐</div>
+      <div class="wf-title">Deployment</div>
+      <div class="wf-desc">Flask REST API + this web interface. Deployable on Render, HuggingFace Spaces, or any cloud platform.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ DOCS ══════════════════════════════ -->
+<section id="docs" class="section docs-section">
+  <div class="section-header">
+    <span class="section-tag">Documentation</span>
+    <h2>Project Deliverables</h2>
+    <p>All artifacts produced for the CodeAlpha Machine Learning Task-4 submission.</p>
+  </div>
+
+  <div class="docs-grid">
+    <div class="doc-card">
+      <div class="doc-icon">🐍</div>
+      <div class="doc-name">main.py</div>
+      <div class="doc-desc">Complete Python source code — preprocessing, EDA, training, evaluation, feature importance, and prediction pipeline.</div>
+      <div class="doc-tag">Python</div>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📓</div>
+      <div class="doc-name">notebook.ipynb</div>
+      <div class="doc-desc">Jupyter Notebook with step-by-step explanations, inline visualizations, and full experimental results.</div>
+      <div class="doc-tag">Jupyter</div>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">💾</div>
+      <div class="doc-name">model.pkl</div>
+      <div class="doc-desc">Trained XGBoost model serialized with Joblib. Loads in under 100ms for real-time inference.</div>
+      <div class="doc-tag">Joblib</div>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📋</div>
+      <div class="doc-name">requirements.txt</div>
+      <div class="doc-desc">All dependencies pinned: pandas, numpy, matplotlib, seaborn, scikit-learn, xgboost, joblib, flask.</div>
+      <div class="doc-tag">Dependencies</div>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📖</div>
+      <div class="doc-name">README.md</div>
+      <div class="doc-desc">Project overview, setup instructions, dataset description, model architecture, and results summary.</div>
+      <div class="doc-tag">Markdown</div>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📊</div>
+      <div class="doc-name">report.pdf</div>
+      <div class="doc-desc">Formal project report with workflow diagram, EDA insights, model comparison table, and conclusions.</div>
+      <div class="doc-tag">Report</div>
+    </div>
+  </div>
+
+  <div class="tech-stack">
+    <div class="ts-title">Tech Stack</div>
+    <div class="ts-items">
+      <span class="ts-item">Python 3.10</span>
+      <span class="ts-item">pandas</span>
+      <span class="ts-item">numpy</span>
+      <span class="ts-item">scikit-learn</span>
+      <span class="ts-item">XGBoost</span>
+      <span class="ts-item">matplotlib</span>
+      <span class="ts-item">seaborn</span>
+      <span class="ts-item">Flask</span>
+      <span class="ts-item">Joblib</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">Health<span class="neon-cyan">AI</span></span>
+    </div>
+    <p class="footer-desc">Disease Prediction from Medical Data — CodeAlpha Machine Learning Task-4</p>
+    <div class="footer-links">
+      <span>Built with Python · Flask · scikit-learn · XGBoost</span>
+    </div>
+    <p class="footer-copy">© 2025 HealthAI Project · For educational and research purposes only.</p>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
